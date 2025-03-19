@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turmas</title>
+    <link rel="stylesheet" href="../static/styles/turmas.css">
+    <script>const turmas = JSON.parse('{{ turmas | tojson | safe }}');</script>
+    <script src="../static/scripts/turmas.js"></script>
+</head>
+<body>
+    <header>
+        <img class="logo" src="../static/img/logo.jpg" alt="logo">
+        <nav>
+            <ul class="nav_links">
+                <li><a href="http://127.0.0.1:5000/professores">Professores</a></li>
+                <li><a href="http://127.0.0.1:5000/alunos">Alunos</a></li>
+                <li><a href="http://127.0.0.1:5000/turmas">Turmas</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <input type="button" value="Adicionar" onclick="adicionarTurma()">
+        <section class="form">
+            <div class="tabela">
+                <table id="tabelaLista">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descrição</th>
+                            <th>Professor</th>
+                            <th>Ativo</th>
+                            <th>Atualizar</th>
+                            <th>Deletar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
