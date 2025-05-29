@@ -9,7 +9,7 @@ from ..models.turma_model import (
     atualizar_turma
         )
 
-turmas_blueprint = Blueprint('/turmas', __name__)
+turmas_blueprint = Blueprint('turmas', __name__)
 
 @turmas_blueprint.route('/turma', methods=['GET'])
 def listar_turma_view():
