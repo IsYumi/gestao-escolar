@@ -24,14 +24,27 @@ def get_turma(id_turma):
         return jsonify({'erro': 'A turma selecionada não foi encontrada'}), 404
 
 @turmas_blueprint.route('/turma', methods=['POST'])
-def adicionar_turma_view():
-        try:
-            dados = request.json
-            resultado, status = adicionar_turma(dados)
-            return jsonify(resultado), status
-        except TurmaNaoEncontrada as erro:
-            return jsonify({'Mensagem':f'Erro na rota de turma:{str(erro)}'})
+def adicionar_turma(dados):
+    # Verificação de professor existente
+    professor = Docente.query.get(dados['professor_id'])
+    if professor is None:
+        return {'Mensagem de erro': 'O professor não existe!'}, 404
 
+    # Validação da descrição
+    descricao = dados.get('descricao', '').strip()
+    if not descricao:
+        return {'Mensagem de erro': 'O campo "descricao" é obrigatório e não pode estar vazio!'}, 400
+
+    nova_turma = Turmas(
+        id=dados['id'],
+        descricao=descricao,
+        professor_id=int(dados['professor_id']),
+        ativo=bool(dados['ativo'])
+    )
+
+    db.session.add(nova_turma)
+    db.session.commit()
+    return {'Mensagem': 'Turma foi adicionada!'}, 201
 @turmas_blueprint.route('/turma/<int:id_turma>', methods=['PUT'])
 def update(id_turma):
     dados = request.json
